@@ -10,49 +10,9 @@ import Foundation
 public struct ASN1Decoder {
     public init() {}
     
-    public func decode(_ type: Data.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> Data {
+    public func value(from data: Data) throws -> ASN1SingleValueContainer {
         guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
-    }
-
-    public func decode(_ type: Bool.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> Bool {
-        guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
-    }
-
-    public func decode(_ type: Int.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> Int {
-        guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
-    }
-
-    public func decode(_ type: Int8.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> Int8 {
-        guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
-    }
-
-    public func decode(_ type: Int16.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> Int16 {
-        guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
-    }
-    
-    public func decode(_ type: Int32.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> Int32 {
-        guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
-    }
-    
-    public func decode(_ type: Int64.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> Int64 {
-        guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
-    }
-    
-    public func decode(_ type: String.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> String {
-        guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
-    }
-    
-    public func decode(_ type: Date.Type, encoded encoding: ASN1Encoding, from data: Data) throws -> Date {
-        guard let tlv = TLV(data: data) else {throw ASN1Error.formatError}
-        return try _ASN1Decoder(container: tlv, containerEncoding: .none).value(encoded: .none).decode(type, encoded: encoding)
+        return _ASN1SingleValueContainer(container: tlv, containerEncoding: .none)
     }
 
     public func decode<T: ASN1Decodable>(_ type: T.Type, from data: Data) throws -> T {
